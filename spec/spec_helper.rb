@@ -88,4 +88,5 @@ RSpec.configure do |config|
 =end
 end
 
+# Enable association tracking in travis even though there is no table in db/...
 PaperTrail.config.track_associations = true if ENV['TRAVIS']
