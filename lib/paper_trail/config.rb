@@ -3,7 +3,7 @@ require 'singleton'
 module PaperTrail
   class Config
     include Singleton
-    attr_accessor :enabled, :timestamp_field, :serializer, :version_limit
+    attr_accessor :enabled, :timestamp_field, :serializer, :version_limit, :track_associations
     attr_reader :serialized_attributes
 
     def initialize
@@ -17,6 +17,8 @@ module PaperTrail
       if ::ActiveRecord::VERSION::STRING < '4.2'
         @serialized_attributes = true
       end
+      
+      @track_associations = PaperTrail::VersionAssociation.table_exists?
     end
 
     def serialized_attributes=(value)
